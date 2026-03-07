@@ -173,32 +173,6 @@ EMERGENCY_EMAIL=emergency@email.com
 
 ---
 
-## 🎯 UN Sustainable Development Goals
-
-| SDG | Alignment |
-|-----|-----------|
-| **SDG 5: Gender Equality** | Directly addresses violence against women through technology |
-| **SDG 3: Good Health & Well-being** | Safety contributes to mental and physical well-being |
-| **SDG 11: Sustainable Cities & Communities** | Creates safer public spaces and communities |
-
----
-
-## 🐛 Known Issues & Next Steps
-
-### Known Issues
-- [ ] Sensor detection requires HTTPS (works on Vercel, not localhost)
-- [ ] AI model uses keyword detection in serverless (ML model too large)
-- [ ] Stats reset on Vercel cold start (no database yet)
-
-### Next Steps
-- [ ] Add database for persistent storage
-- [ ] Implement voice activation ("Hey SafeHer")
-- [ ] Add trusted contacts management UI
-- [ ] Create mobile app (React Native)
-- [ ] Add multi-language support
-
----
-
 ## 📊 API Endpoints
 
 | Endpoint | Method | Description |
@@ -223,6 +197,32 @@ curl -X POST http://localhost:8000/api/scan-message \
   -H "Content-Type: application/json" \
   -d '{"message": "Hello", "location": "40.7128,-74.0060"}'
 ```
+
+---
+
+## 🎯 UN Sustainable Development Goals
+
+| SDG | Alignment |
+|-----|-----------|
+| **SDG 5: Gender Equality** | Directly addresses violence against women through technology |
+| **SDG 3: Good Health & Well-being** | Safety contributes to mental and physical well-being |
+| **SDG 11: Sustainable Cities & Communities** | Creates safer public spaces and communities |
+
+---
+
+## 🐛 Known Issues & Next Steps
+
+### Known Issues
+- [ ] Sensor detection requires HTTPS (works on Vercel, not localhost)
+- [ ] AI model uses keyword detection in serverless (ML model too large)
+- [ ] Stats reset on Vercel cold start (no database yet)
+
+### Next Steps
+- [ ] Add database for persistent storage
+- [ ] Implement voice activation ("Hey SafeHer")
+- [ ] Add trusted contacts management UI
+- [ ] Create mobile app (React Native)
+- [ ] Add multi-language support
 
 ---
 
