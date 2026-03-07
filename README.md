@@ -2,8 +2,7 @@
 
 **AI-Powered Women's Safety Companion**
 
-> **Headline:** AI that detects danger before it escalates  
-> **Subhead:** Real-time harassment detection, automatic alerts, and emergency response for women's safety  
+> Real-time harassment detection, automatic alerts, and emergency response for women's safety  
 
 ![SafeHer AI](https://img.shields.io/badge/SafeHer-AI%20Safety-purple?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.9+-blue?style=flat-square)
