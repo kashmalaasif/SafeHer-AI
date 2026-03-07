@@ -2,247 +2,171 @@
 
 **AI-Powered Women's Safety Companion**
 
-SafeHer AI is a comprehensive safety application that uses artificial intelligence to detect harassment, provide emergency alerts, and keep women safe.
+> **Headline:** AI that detects danger before it escalates  
+> **Subhead:** Real-time harassment detection, automatic alerts, and emergency response for women's safety  
 
 ![SafeHer AI](https://img.shields.io/badge/SafeHer-AI%20Safety-purple?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.9+-blue?style=flat-square)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.109-green?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
 ---
 
-## 🌟 Features
+## 📋 4-Line Problem Frame
 
-- **🔍 Harassment Detection**: AI-powered text analysis using toxic-bert model
-- **🚨 Panic Button**: One-tap emergency alert system
-- **📍 Location Sharing**: Automatic GPS location in alerts
-- **📱 SMS Alerts**: Instant SMS notifications via Twilio
-- **📧 Email Alerts**: Detailed email notifications
-- **📊 Dashboard**: Real-time safety statistics
-- **🔔 Sensor Detection**: Support for accelerometer/fall detection
+| Element | Description |
+|---------|-------------|
+| **User** | Women who face harassment, stalking, or feel unsafe in daily situations |
+| **Problem** | 1 in 3 women globally experience physical or sexual violence; most lack instant access to help |
+| **Constraints** | Must work offline-capable, be discreet, require no technical knowledge, and send alerts within seconds |
+| **Success Test** | User can trigger emergency alert with location in under 3 seconds; AI detects 70%+ of threatening messages |
+
+---
+
+## 🌟 What It Does
+
+SafeHer AI is an AI-powered safety companion that:
+
+1. **🔍 Detects Harassment** - AI analyzes messages for toxic/threatening content
+2. **🚨 Panic Button** - One-tap emergency alerts with GPS location
+3. **📱 Auto Protection** - Shake/fall detection triggers automatic alerts
+4. **📊 Dashboard** - Real-time safety statistics and alert history
+
+---
+
+## 🚀 Quickstart (1-Command Setup)
+
+### Prerequisites
+- Python 3.9+
+- Node.js 16+
+
+### Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/mmoneka11/SafeHER-AI.git
+cd SafeHER-AI
+
+# Copy environment template
+cp .env.example .env
+
+# Run setup script (Windows)
+setup.bat
+
+# OR manually:
+# Backend
+cd backend && pip install -r requirements.txt && uvicorn main:app --reload &
+
+# Frontend
+cd frontend && npm install && npm start
+```
+
+**That's it!** Open http://localhost:3000 🎉
 
 ---
 
 ## 🏗️ Architecture
 
 ```
-Frontend (React)
-      |
-      | API Requests
-      v
-Backend (FastAPI)
-      |
-      | Goose AI Agent
-      v
-ML Model (toxic-bert)
-      |
-      v
-Alert System (Twilio SMS + Email)
+┌─────────────────────────────────────────────────────────┐
+│                     FRONTEND (React)                     │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐   │
+│  │Dashboard │ │ Scanner  │ │ Sensors  │ │  Panic   │   │
+│  └────┬─────┘ └────┬─────┘ └────┬─────┘ └────┬─────┘   │
+└───────┼────────────┼────────────┼────────────┼──────────┘
+        │            │            │            │
+        ▼            ▼            ▼            ▼
+┌─────────────────────────────────────────────────────────┐
+│                   REST API (FastAPI)                     │
+│         /status    /scan-message    /panic              │
+└─────────────────────────┬───────────────────────────────┘
+                          │
+        ┌─────────────────┼─────────────────┐
+        ▼                 ▼                 ▼
+┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+│  AI Model    │  │ Safety Agent │  │ Alert System │
+│ (toxic-bert) │  │  (Decision)  │  │(Twilio/Email)│
+└──────────────┘  └──────────────┘  └──────────────┘
 ```
+
+### Component Overview
+
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| Frontend | React 18, Axios | User interface, sensor access |
+| Backend | FastAPI, Python | API endpoints, business logic |
+| AI Model | Hugging Face toxic-bert | Harassment detection |
+| Alerts | Twilio, SMTP | SMS and email notifications |
+| Hosting | Vercel | Serverless deployment |
+
+---
+
+## 🔧 Tech Stack
+
+| Layer | Technology | Why Chosen |
+|-------|------------|------------|
+| **Frontend** | React 18 | Component-based, large ecosystem |
+| **Styling** | CSS3 | No dependencies, fast loading |
+| **Backend** | FastAPI | Async, fast, auto-documentation |
+| **AI/ML** | Transformers | State-of-the-art NLP models |
+| **Model** | toxic-bert | Pre-trained for toxicity detection |
+| **SMS** | Twilio | Reliable, global coverage |
+| **Hosting** | Vercel | Free tier, easy deployment |
 
 ---
 
 ## 📁 Project Structure
 
 ```
-safeher-ai/
-│
-├── backend/
-│   ├── main.py           # FastAPI server
-│   ├── goose_agent.py    # AI safety agent
-│   ├── model.py          # ML harassment detection
-│   └── alerts.py         # SMS/Email alert system
-│
-├── frontend/
-│   ├── public/
-│   │   └── index.html    # HTML template
+SafeHER-AI/
+├── frontend/                # React frontend
 │   ├── src/
-│   │   ├── App.js        # Main React component
-│   │   ├── App.css       # Styles
-│   │   ├── PanicButton.js    # Emergency button
-│   │   ├── MessageScanner.js # Text analyzer
-│   │   ├── StatusDashboard.js# Statistics dashboard
-│   │   └── index.js      # React entry point
-│   └── package.json      # Frontend dependencies
+│   │   ├── App.js          # Main component
+│   │   ├── App.css         # Styles
+│   │   ├── config.js       # API configuration
+│   │   ├── PanicButton.js  # Emergency button
+│   │   ├── MessageScanner.js # AI text analyzer
+│   │   ├── SensorDetection.js # Motion sensors
+│   │   └── StatusDashboard.js # Statistics
+│   └── package.json
 │
-├── requirements.txt      # Python dependencies
-└── README.md
-```
-
----
-
-## 🚀 Local Setup (Windows CMD)
-
-### Prerequisites
-
-- Python 3.9+ ✅
-- Node.js 16+ ✅
-
-### Step 1: Backend Setup
-
-Open CMD and run:
-
-```cmd
-cd C:\Users\hp\safeher-ai
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-cd backend
-py -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
-
-Backend runs at: **http://localhost:8000**
-
-### Step 2: Frontend Setup
-
-Open a **NEW CMD** window and run:
-
-```cmd
-cd C:\Users\hp\safeher-ai\frontend
-npm install
-npm start
-```
-
-Frontend runs at: **http://localhost:3000**
-
----
-
-## 🌐 FREE HOSTING OPTIONS
-
-### Option 1: Render (Recommended - Easiest)
-
-**Host Backend (Free):**
-
-1. Go to [render.com](https://render.com) and sign up
-2. Click **New** → **Web Service**
-3. Connect your GitHub repo
-4. Configure:
-   - **Name**: `safeher-api`
-   - **Root Directory**: `backend`
-   - **Runtime**: `Python 3`
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-5. Click **Create Web Service**
-
-**Host Frontend (Free):**
-
-1. Click **New** → **Static Site**
-2. Connect your GitHub repo
-3. Configure:
-   - **Name**: `safeher-frontend`
-   - **Root Directory**: `frontend`
-   - **Build Command**: `npm install && npm run build`
-   - **Publish Directory**: `build`
-4. Add Environment Variable:
-   - `REACT_APP_API_URL` = `https://safeher-api.onrender.com`
-5. Click **Create Static Site**
-
----
-
-### Option 2: Vercel + Railway
-
-**Frontend on Vercel (Free):**
-
-1. Go to [vercel.com](https://vercel.com) and sign up
-2. Click **Add New** → **Project**
-3. Import your GitHub repo
-4. Set **Root Directory**: `frontend`
-5. Add Environment Variable:
-   - `REACT_APP_API_URL` = your backend URL
-6. Click **Deploy**
-
-**Backend on Railway (Free $5 credit):**
-
-1. Go to [railway.app](https://railway.app) and sign up
-2. Click **New Project** → **Deploy from GitHub**
-3. Select your repo
-4. Set **Root Directory**: `backend`
-5. Add **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-6. Deploy!
-
----
-
-### Option 3: PythonAnywhere (Backend Only - Free)
-
-1. Go to [pythonanywhere.com](https://www.pythonanywhere.com)
-2. Sign up for free account
-3. Go to **Web** tab → **Add new web app**
-4. Choose **Flask** (works with FastAPI too)
-5. Upload your backend files
-6. Configure WSGI file for FastAPI
-
----
-
-### Option 4: GitHub Pages + Render
-
-**Frontend on GitHub Pages (Free):**
-
-1. Build frontend: `npm run build`
-2. Push `build` folder to `gh-pages` branch
-3. Enable GitHub Pages in repo settings
-
-**Backend on Render** (same as Option 1)
-
----
-
-## 📦 Deploying to GitHub (Required for Hosting)
-
-First, push your code to GitHub:
-
-```cmd
-cd C:\Users\hp\safeher-ai
-git init
-git add .
-git commit -m "SafeHer AI - Initial commit"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/safeher-ai.git
-git push -u origin main
-```
-
----
-
-## 🔌 API Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/` | GET | Health check |
-| `/scan-message` | POST | Analyze text for threats |
-| `/panic` | POST | Trigger panic alert |
-| `/sensor-data` | POST | Analyze sensor data |
-| `/status` | GET | Get system statistics |
-| `/health` | GET | API health check |
-| `/docs` | GET | Interactive API docs |
-
-### Example API Calls
-
-**Scan Message:**
-```bash
-curl -X POST https://your-api.onrender.com/scan-message \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Hello there", "location": "40.7128,-74.0060"}'
-```
-
-**Panic Alert:**
-```bash
-curl -X POST https://your-api.onrender.com/panic \
-  -H "Content-Type: application/json" \
-  -d '{"location": "40.7128,-74.0060"}'
+├── backend/                 # Python backend (local)
+│   ├── main.py             # FastAPI server
+│   ├── model.py            # AI harassment detection
+│   ├── goose_agent.py      # Safety decision agent
+│   ├── alerts.py           # SMS/Email system
+│   └── requirements.txt
+│
+├── api/                     # Vercel serverless
+│   ├── index.py            # Serverless API
+│   └── requirements.txt
+│
+├── docs/                    # Documentation
+│   ├── DECISION_LOG.md     # Technical decisions
+│   ├── RISK_LOG.md         # Issues & resolutions
+│   └── EVIDENCE_LOG.md     # Sources & licenses
+│
+├── .env.example            # Environment template
+├── vercel.json             # Deployment config
+├── LICENSE                 # MIT License
+└── README.md               # This file
 ```
 
 ---
 
 ## ⚙️ Environment Variables
 
-Create `.env` file in `backend/` folder:
+Copy `.env.example` to `.env` and configure:
 
 ```env
-# Twilio (SMS Alerts)
-TWILIO_ACCOUNT_SID=your_twilio_sid
-TWILIO_AUTH_TOKEN=your_twilio_token
+# Optional: For SMS alerts (Twilio)
+TWILIO_ACCOUNT_SID=your_account_sid
+TWILIO_AUTH_TOKEN=your_auth_token
 TWILIO_FROM_NUMBER=+1234567890
 EMERGENCY_CONTACT=+0987654321
 
-# Email (Email Alerts)
+# Optional: For Email alerts
 SMTP_SERVER=smtp.gmail.com
 SMTP_PORT=587
 EMAIL_ADDRESS=your-email@gmail.com
@@ -250,51 +174,101 @@ EMAIL_PASSWORD=your-app-password
 EMERGENCY_EMAIL=emergency@email.com
 ```
 
----
-
-## 🧠 AI Model
-
-SafeHer AI uses the **unitary/toxic-bert** model from Hugging Face:
-
-- Detects toxic language
-- Identifies threats & insults
-- 70%+ confidence threshold for alerts
+**Note:** The app works without these - alerts are logged instead of sent.
 
 ---
 
-## 📱 Screenshots
+## 🎯 UN Sustainable Development Goals
 
-| Dashboard | Panic Button | Message Scanner |
-|-----------|--------------|-----------------|
-| 📊 Stats  | 🚨 Emergency | 🔍 AI Analysis  |
+| SDG | Alignment |
+|-----|-----------|
+| **SDG 5: Gender Equality** | Directly addresses violence against women through technology |
+| **SDG 3: Good Health & Well-being** | Safety contributes to mental and physical well-being |
+| **SDG 11: Sustainable Cities** | Creates safer public spaces and communities |
 
 ---
 
-## 🛠️ Tech Stack
+## 🐛 Known Issues & Next Steps
 
-| Layer | Technology |
-|-------|------------|
-| Frontend | React 18, Axios, CSS3 |
-| Backend | Python, FastAPI, Uvicorn |
-| AI/ML | Transformers, PyTorch, toxic-bert |
-| Alerts | Twilio SMS, SMTP Email |
-| Hosting | Render / Vercel / Railway |
+### Known Issues
+- [ ] Sensor detection requires HTTPS (works on Vercel, not localhost)
+- [ ] AI model uses keyword detection in serverless (ML model too large)
+- [ ] Stats reset on Vercel cold start (no database yet)
+
+### Next Steps
+- [ ] Add database for persistent storage
+- [ ] Implement voice activation ("Hey SafeHer")
+- [ ] Add trusted contacts management UI
+- [ ] Create mobile app (React Native)
+- [ ] Add multi-language support
+
+---
+
+## 📊 API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Health check |
+| `/api/scan-message` | POST | Analyze text for threats |
+| `/api/panic` | POST | Trigger emergency alert |
+| `/api/status` | GET | Get statistics |
+| `/api/health` | GET | API health check |
+
+---
+
+## 🧪 Testing
+
+```bash
+# Test API locally
+curl http://localhost:8000/api/health
+
+# Test message scanning
+curl -X POST http://localhost:8000/api/scan-message \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Hello", "location": "40.7128,-74.0060"}'
+```
 
 ---
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create feature branch: `git checkout -b feature-name`
-3. Commit changes: `git commit -m "Add feature"`
-4. Push to branch: `git push origin feature-name`
-5. Open Pull Request
+2. Create feature branch: `git checkout -b feature/amazing-feature`
+3. Commit changes: `git commit -m 'Add amazing feature'`
+4. Push to branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
 ---
 
-## 📄 License
+## 📜 License
 
-MIT License - Free to use and modify
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Credits & Attribution
+
+### APIs & Services
+- [Twilio](https://www.twilio.com/) - SMS messaging API
+- [Hugging Face](https://huggingface.co/) - AI model hosting
+- [Google Maps](https://maps.google.com/) - Location services
+
+### AI Models
+- [unitary/toxic-bert](https://huggingface.co/unitary/toxic-bert) - Toxicity detection model (Apache 2.0)
+
+### Frameworks & Libraries
+- [React](https://reactjs.org/) - MIT License
+- [FastAPI](https://fastapi.tiangolo.com/) - MIT License
+- [Axios](https://axios-http.com/) - MIT License
+- [Transformers](https://huggingface.co/transformers/) - Apache 2.0
+
+### Data Sources
+- WHO Statistics on Violence Against Women
+- UN Women Global Database
+
+### Icons & Assets
+- Emoji icons (Unicode standard)
+- Custom CSS (original)
 
 ---
 
@@ -302,19 +276,27 @@ MIT License - Free to use and modify
 
 If you're in immediate danger, contact local emergency services:
 
-| Country | Emergency Number |
-|---------|------------------|
-| USA | 911 |
-| UK | 999 |
-| India | 100 (Police), 181 (Women Helpline) |
-| EU | 112 |
+| Country | Number | Helpline |
+|---------|--------|----------|
+| USA | 911 | National DV Hotline: 1-800-799-7233 |
+| UK | 999 | Women's Aid: 0808-2000-247 |
+| India | 100 | Women Helpline: 181 |
+| EU | 112 | - |
 
 ---
 
-## 👩‍💻 Author
+---
 
-Built with ❤️ for women's safety
+## 👩‍💻 Team - Authors & Contributions
+
+| Name | Role | Contributions | GitHub |
+|------|------|---------------|--------|
+| **Moneka Meghwar** | AI Developer | AI model integration, Backend API, Core features | [@mmoneka11](https://github.com/mmoneka11) |
+| **Kashmala Saddiqui** | Security Specialist | Alert system, Sensor detection, Security review | [@kashmalaasif](https://github.com/kashmalaasif) |
+| **Umaima Rizwan** | Documentation Lead | Documentation, UI/UX design, Testing | [@umaim691](https://github.com/umaim691) |
 
 ---
 
-**SafeHer AI - Because Your Safety Matters** 🛡️
+**Built with ❤️ for women's safety**
+
+*SafeHer AI - Because Your Safety Matters* 🛡️

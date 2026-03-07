@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { API_URL } from "./config";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
-
-// Default location (New York) - used when geolocation is unavailable
 const DEFAULT_LOCATION = "40.7128,-74.0060";
 
 function PanicButton() {
@@ -14,25 +12,16 @@ function PanicButton() {
   const getLocation = () => {
     return new Promise((resolve) => {
       if (!navigator.geolocation) {
-        console.log("Geolocation not supported, using default location");
         resolve(DEFAULT_LOCATION);
         return;
       }
 
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const location = position.coords.latitude + "," + position.coords.longitude;
-          resolve(location);
+          resolve(position.coords.latitude + "," + position.coords.longitude);
         },
-        (err) => {
-          console.log("Geolocation error, using default location:", err);
-          resolve(DEFAULT_LOCATION);
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0,
-        }
+        () => resolve(DEFAULT_LOCATION),
+        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
       );
     });
   };
@@ -49,11 +38,11 @@ function PanicButton() {
         location: location,
       });
 
-      setStatus("✅ Emergency Alert Sent Successfully! Location: " + location);
+      setStatus("✅ Emergency Alert Sent! Location: " + location);
       console.log("Panic response:", response.data);
 
     } catch (err) {
-      setError("Failed to send alert. Make sure backend is running on port 8000.");
+      setError("Failed to send alert. Check if backend is running.");
       console.error("Panic error:", err);
     } finally {
       setLoading(false);
@@ -63,25 +52,21 @@ function PanicButton() {
   return (
     <div className="panic-button-container">
       <h2>🆘 Emergency Alert</h2>
-      <p>Press the button below to send an immediate alert to your emergency contacts with your current location.</p>
+      <p>Press the button to send an immediate alert with your location.</p>
 
       <button
         className={`panic-button ${loading ? "loading" : ""}`}
         onClick={sendAlert}
         disabled={loading}
       >
-        {loading ? (
-          <span>Sending Alert...</span>
-        ) : (
-          <span>🚨 PANIC ALERT</span>
-        )}
+        {loading ? "Sending..." : "🚨 PANIC ALERT"}
       </button>
 
       {status && <div className="success-message">{status}</div>}
       {error && <div className="error-message">{error}</div>}
 
       <p className="panic-note">
-        <strong>Note:</strong> Uses default location if GPS is unavailable.
+        Uses default location if GPS unavailable.
       </p>
     </div>
   );

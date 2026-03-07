@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import { API_URL } from "./config";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const DEFAULT_LOCATION = "40.7128,-74.0060";
 
 function SensorDetection() {
@@ -11,10 +11,8 @@ function SensorDetection() {
   const [lastAlert, setLastAlert] = useState(null);
   const [detectionCount, setDetectionCount] = useState(0);
 
-  // Sensitivity threshold
   const SHAKE_THRESHOLD = 25;
 
-  // Get location
   const getLocation = () => {
     return new Promise((resolve) => {
       if (!navigator.geolocation) {
@@ -29,7 +27,6 @@ function SensorDetection() {
     });
   };
 
-  // Auto send alert
   const sendAutoAlert = useCallback(async (reason) => {
     if (alertCooldown) return;
 
@@ -44,21 +41,16 @@ function SensorDetection() {
         custom_message: `🔔 AUTO ALERT: ${reason}`,
       });
 
-      // Browser notification
       if ("Notification" in window && Notification.permission === "granted") {
-        new Notification("🚨 SafeHer AI Alert Sent!", {
-          body: reason,
-        });
+        new Notification("🚨 SafeHer AI Alert Sent!", { body: reason });
       }
     } catch (err) {
       console.error("Alert error:", err);
     }
 
-    // 30 second cooldown
     setTimeout(() => setAlertCooldown(false), 30000);
   }, [alertCooldown]);
 
-  // Motion detection handler
   const handleMotion = useCallback((event) => {
     const acc = event.accelerationIncludingGravity;
     if (!acc) return;
@@ -68,17 +60,14 @@ function SensorDetection() {
     const z = Math.abs(acc.z || 0);
     const total = Math.sqrt(x * x + y * y + z * z);
 
-    // Detect shake/fall
     if (total > SHAKE_THRESHOLD || x > SHAKE_THRESHOLD || y > SHAKE_THRESHOLD) {
       sendAutoAlert("Shake or fall detected");
     }
   }, [sendAutoAlert]);
 
-  // Enable/disable sensors
   useEffect(() => {
     if (isEnabled) {
       if (window.DeviceMotionEvent) {
-        // iOS permission
         if (typeof DeviceMotionEvent.requestPermission === "function") {
           DeviceMotionEvent.requestPermission()
             .then((permission) => {
@@ -99,7 +88,6 @@ function SensorDetection() {
           setSensorStatus("Active");
         }
 
-        // Request notification permission
         if ("Notification" in window && Notification.permission === "default") {
           Notification.requestPermission();
         }
@@ -118,9 +106,8 @@ function SensorDetection() {
   return (
     <div className="sensor-detection-container">
       <h2>📱 Auto Protection</h2>
-      <p>Automatically sends alert when shake or fall is detected.</p>
+      <p>Auto-sends alert on shake or fall detection.</p>
 
-      {/* Simple Toggle */}
       <div className="sensor-toggle">
         <label className="toggle-switch">
           <input
@@ -135,7 +122,6 @@ function SensorDetection() {
         </span>
       </div>
 
-      {/* Status */}
       <div className="sensor-status">
         <div className={`status-indicator ${isEnabled ? "active" : ""}`}>
           <span className="status-dot"></span>
@@ -143,7 +129,6 @@ function SensorDetection() {
         </div>
       </div>
 
-      {/* Stats */}
       <div className="sensor-stats">
         <div className="stat-row">
           <span>🔔 Alerts Sent:</span>
@@ -156,16 +141,13 @@ function SensorDetection() {
           </div>
         )}
         {alertCooldown && (
-          <div className="cooldown-badge">
-            ⏳ Cooldown Active (30s)
-          </div>
+          <div className="cooldown-badge">⏳ Cooldown (30s)</div>
         )}
       </div>
 
-      {/* How it works */}
       <div className="sensor-info">
-        <p>📲 <strong>On Mobile:</strong> Shake phone or fall triggers alert automatically</p>
-        <p>💻 <strong>On Desktop:</strong> Use Panic Button instead</p>
+        <p>📲 <strong>Mobile:</strong> Shake triggers alert</p>
+        <p>💻 <strong>Desktop:</strong> Use Panic Button</p>
       </div>
     </div>
   );

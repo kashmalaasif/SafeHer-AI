@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
+import { API_URL } from "./config";
 
 function StatusDashboard() {
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [lastRefresh, setLastRefresh] = useState(null);
 
   const fetchStatus = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(`${API_URL}/status`);
       setStatus(response.data);
       setError("");
+      setLastRefresh(new Date().toLocaleTimeString());
     } catch (err) {
-      setError("Unable to fetch status");
-      console.error("Status fetch error:", err);
+      setError("Cannot connect to backend");
+      console.error("Status error:", err);
     } finally {
       setLoading(false);
     }
@@ -23,33 +25,28 @@ function StatusDashboard() {
 
   useEffect(() => {
     fetchStatus();
-    // Refresh status every 30 seconds
     const interval = setInterval(fetchStatus, 30000);
     return () => clearInterval(interval);
   }, []);
 
-  if (loading) {
-    return (
-      <div className="status-dashboard">
-        <h2>📊 Safety Dashboard</h2>
-        <p>Loading status...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="status-dashboard">
-        <h2>📊 Safety Dashboard</h2>
-        <p className="error-message">{error}</p>
-        <button onClick={fetchStatus}>Retry</button>
-      </div>
-    );
-  }
-
   return (
     <div className="status-dashboard">
-      <h2>📊 Safety Dashboard</h2>
+      <div className="dashboard-header">
+        <h2>📊 Safety Dashboard</h2>
+        <button 
+          className="refresh-button" 
+          onClick={fetchStatus}
+          disabled={loading}
+        >
+          {loading ? "⏳ Loading..." : "🔄 Refresh"}
+        </button>
+      </div>
+
+      {error && (
+        <div className="dashboard-error">
+          <p>⚠️ {error}</p>
+        </div>
+      )}
 
       <div className="stats-grid">
         <div className="stat-card">
@@ -61,7 +58,7 @@ function StatusDashboard() {
         <div className="stat-card warning">
           <h3>⚠️</h3>
           <p className="stat-number">{status?.threats_detected || 0}</p>
-          <p className="stat-label">Threats Detected</p>
+          <p className="stat-label">Threats Found</p>
         </div>
 
         <div className="stat-card alert">
@@ -71,25 +68,9 @@ function StatusDashboard() {
         </div>
       </div>
 
-      {status?.recent_alerts && status.recent_alerts.length > 0 && (
-        <div className="recent-activity">
-          <h3>Recent Alerts</h3>
-          <ul>
-            {status.recent_alerts.map((alert, index) => (
-              <li key={index}>
-                <span className="alert-type">{alert.type}</span>
-                <span className="alert-time">
-                  {new Date(alert.timestamp).toLocaleString()}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+      {lastRefresh && (
+        <p className="last-refresh">Last updated: {lastRefresh}</p>
       )}
-
-      <button className="refresh-button" onClick={fetchStatus}>
-        🔄 Refresh Status
-      </button>
     </div>
   );
 }
