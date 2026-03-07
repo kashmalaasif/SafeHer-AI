@@ -332,5 +332,5 @@ If you find this project useful:
 
 *SafeHer AI - Because Your Safety Matters* 🛡️
 
-<p align="center">  <b>uilt with ❤️ by the IGOGs Team</b><br> for women's safety✨ </p> 
+<p align="center">  <b>Built with ❤️ by the IGOGs Team</b><br> for women's safety & empowerment✨ </p> 
 
