@@ -207,9 +207,9 @@ curl -X POST http://localhost:8000/api/scan-message \
 
 | SDG | Alignment |
 |-----|-----------|
-| **SDG 5: Gender Equality** | Directly addresses violence against women through technology |
-| **SDG 3: Good Health & Well-being** | Safety contributes to mental and physical well-being |
-| **SDG 11: Sustainable Cities & Communities** | Creates safer public spaces and communities |
+| **SDG 5: Gender Equality** | Combats violence and harassment against women through technology-based safety solutions. |
+| **SDG 3: Good Health & Well-being** | Supports women’s mental and physical well-being through technology-based emergency protection. |
+| **SDG 11: Sustainable Cities & Communities** |Promotes safer public spaces with technology-driven personal safety systems. |
 
 ---
 
