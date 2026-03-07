@@ -1,9 +1,9 @@
 // API Configuration
-// On Vercel: uses /api (same domain)
-// Locally: uses localhost:8000
+// Production (Vercel): uses /api (same domain)
+// Development: uses localhost:8000
 
-const isProduction = process.env.NODE_ENV === "production";
-
-export const API_URL = isProduction 
+const API_URL = process.env.NODE_ENV === "production" 
   ? "/api" 
-  : (process.env.REACT_APP_API_URL || "http://localhost:8000");
+  : "http://localhost:8000/api";
+
+export { API_URL };

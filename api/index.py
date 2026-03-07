@@ -12,7 +12,7 @@ import os
 # Initialize FastAPI
 app = FastAPI(title="SafeHer AI API")
 
-# CORS for frontend
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -21,7 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# In-memory storage (resets on cold start)
+# In-memory storage
 scan_history = []
 alert_history = []
 
@@ -39,21 +39,22 @@ class PanicRequest(BaseModel):
     custom_message: Optional[str] = None
 
 
-# Simple toxic word detection (no ML model for serverless)
+# Toxic keywords for detection
 TOXIC_WORDS = [
     "kill", "die", "hate", "threat", "hurt", "attack", "abuse",
     "violent", "murder", "assault", "harass", "stalk", "rape",
-    "beat", "punch", "slap", "destroy", "suffer", "pain", "fear"
+    "beat", "punch", "slap", "destroy", "suffer", "pain", "fear",
+    "danger", "harm", "blood", "revenge", "shoot", "knife", "gun"
 ]
 
 
 def detect_harassment(text: str) -> dict:
-    """Simple keyword-based detection for serverless."""
+    """Keyword-based detection for serverless."""
     text_lower = text.lower()
     found_words = [word for word in TOXIC_WORDS if word in text_lower]
     
     if found_words:
-        score = min(len(found_words) * 0.25, 1.0)
+        score = min(len(found_words) * 0.3, 1.0)
         return {
             "is_threat": score > 0.5,
             "score": score,
@@ -64,10 +65,7 @@ def detect_harassment(text: str) -> dict:
 
 
 def send_alert(message: str, location: str) -> dict:
-    """
-    Alert function - In production, add Twilio/Email here.
-    For now, just logs the alert.
-    """
+    """Log alert (add Twilio here for real SMS)."""
     alert = {
         "timestamp": datetime.now().isoformat(),
         "message": message,
@@ -75,26 +73,24 @@ def send_alert(message: str, location: str) -> dict:
         "map_url": f"https://maps.google.com/?q={location}"
     }
     alert_history.append(alert)
-    
-    # TODO: Add Twilio SMS here using os.getenv("TWILIO_ACCOUNT_SID"), etc.
-    # TODO: Add Email alerts here
-    
     return {"status": "logged", "alert": alert}
 
 
-# API Endpoints
+# Routes
 @app.get("/")
+@app.get("/api")
+@app.get("/api/")
 def root():
     return {
         "status": "active",
         "service": "SafeHer AI",
-        "message": "Women's Safety API is running on Vercel"
+        "message": "Women's Safety API running on Vercel 🛡️"
     }
 
 
-@app.get("/api")
-def api_root():
-    return root()
+@app.get("/api/health")
+def health():
+    return {"status": "healthy"}
 
 
 @app.post("/api/scan-message")
@@ -155,6 +151,6 @@ def get_status():
     }
 
 
-@app.get("/api/health")
-def health():
-    return {"status": "healthy"}
+# Vercel handler
+from mangum import Mangum
+handler = Mangum(app)
