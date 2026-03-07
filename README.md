@@ -18,22 +18,23 @@ The solution is designed for women who face harassment, stalking, or feel unsafe
 
 ---
 
-## 🌟 What It Does
+## 🌟Key Features
 
 SafeHer AI is an AI-powered safety companion that:
 
-1. **🔍 Detects Harassment** - AI analyzes messages for toxic/threatening content
+1. **🔍 Harassment Detectiont** - AI analyzes messages for toxic/threatening content
 2. **🚨 Panic Button** - One-tap emergency alerts with GPS location
-3. **📱 Auto Protection** - Shake/fall detection triggers automatic alerts
-4. **📊 Dashboard** - Real-time safety statistics and alert history
+3. **📱 Automatic Protection** - Shake/fall detection triggers automatic alerts
+4. **📊 Safety Dashboard** - Real-time safety statistics, threats and alert history
 
 ---
 
-## 🚀 Quickstart (1-Command Setup)
+## 🚀 Quickstart 
 
 ### Prerequisites
 - Python 3.9+
 - Node.js 16+
+- Git
 
 ### Quick Start
 
@@ -84,29 +85,19 @@ cd frontend && npm install && npm start
 └──────────────┘  └──────────────┘  └──────────────┘
 ```
 
-### Component Overview
-
-| Component | Technology | Purpose |
-|-----------|------------|---------|
-| Frontend | React 18, Axios | User interface, sensor access |
-| Backend | FastAPI, Python | API endpoints, business logic |
-| AI Model | Hugging Face toxic-bert | Harassment detection |
-| Alerts | Twilio, SMTP | SMS and email notifications |
-| Hosting | Vercel | Serverless deployment |
-
 ---
 
 ## 🔧 Tech Stack
 
 | Layer | Technology | Why Chosen |
 |-------|------------|------------|
-| **Frontend** | React 18 | Component-based, large ecosystem |
+| **Frontend** | React 18, Axios | User interface, Component-based, sensor acces, large ecosystem |
 | **Styling** | CSS3 | No dependencies, fast loading |
-| **Backend** | FastAPI | Async, fast, auto-documentation |
-| **AI/ML** | Transformers | State-of-the-art NLP models |
-| **Model** | toxic-bert | Pre-trained for toxicity detection |
-| **SMS** | Twilio | Reliable, global coverage |
-| **Hosting** | Vercel | Free tier, easy deployment |
+| **Backend** | FastAPI, Python | Async, fast, auto-documentation, API endpoints |
+| **AI/ML** | Hugging Face Transformers | State-of-the-art NLP models |
+| **Model** | toxic-bert | Pre-trained for toxicity detection / Harassment detection |
+| **SMS** | Twilio, SMTP | Reliable, global coverage,  SMS and email notifications |
+| **Hosting** | Vercel | Free tier, easy Serverless deployment |
 
 ---
 
@@ -178,7 +169,7 @@ EMERGENCY_EMAIL=emergency@email.com
 |-----|-----------|
 | **SDG 5: Gender Equality** | Directly addresses violence against women through technology |
 | **SDG 3: Good Health & Well-being** | Safety contributes to mental and physical well-being |
-| **SDG 11: Sustainable Cities** | Creates safer public spaces and communities |
+| **SDG 11: Sustainable Cities & Communities** | Creates safer public spaces and communities |
 
 ---
 
@@ -203,9 +194,9 @@ EMERGENCY_EMAIL=emergency@email.com
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/` | GET | Health check |
-| `/api/scan-message` | POST | Analyze text for threats |
+| `/api/scan-message` | POST | Detect harassment |
 | `/api/panic` | POST | Trigger emergency alert |
-| `/api/status` | GET | Get statistics |
+| `/api/status` | GET | Safety statistics |
 | `/api/health` | GET | API health check |
 
 ---
@@ -213,7 +204,7 @@ EMERGENCY_EMAIL=emergency@email.com
 ## 🧪 Testing
 
 ```bash
-# Test API locally
+# Test API locally / Health Check
 curl http://localhost:8000/api/health
 
 # Test message scanning
@@ -224,6 +215,54 @@ curl -X POST http://localhost:8000/api/scan-message \
 
 ---
 
+
+## 🆘 Emergency Resources
+
+If you're in immediate danger, contact local emergency services:
+
+| Country | Number | Helpline |
+|---------|--------|----------|
+| USA | 911 | National DV Hotline: 1-800-799-7233 |
+| UK | 999 | Women's Aid: 0808-2000-247 |
+| India | 100 | Women Helpline: 181 |
+| EU | 112 | - |
+
+---
+
+---
+
+## 👩‍💻 Team - Authors & Contributions
+
+| Name | Role | Contributions | GitHub |
+|------|------|---------------|--------|
+| **Moneka Meghwar** | AI Developer | AI model integration, Backend API, Core features | [@mmoneka11](https://github.com/mmoneka11) |
+| **Kashmala Saddiqui** | Security Specialist | Alert system, Sensor detection, Security review | [@kashmalaasif](https://github.com/kashmalaasif) |
+| **Umaima Rizwan** | Documentation Lead | Documentation, UI/UX design, Testing | [@umaim691](https://github.com/umaim691) |
+
+---
+---
+
+# 🏆 Hackathon
+
+This project was built as part of the **75Her Challenge Hackathon**, an initiative focused on developing innovative solutions that support **women's empowerment, safety, and leadership through technology**.
+
+🔗 Hackathon Page  
+https://75her-challenge.devpost.com/
+
+---
+
+# 💡 Project Impact
+
+SafeHer AI aims to provide women with:
+
+- Instant emergency assistance
+- AI-powered harassment detection
+- Location-based alert systems
+- Safer digital and physical environments
+
+The project focuses on using **technology for social good**, helping build **safer communities for women worldwide**.
+
+---
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -231,6 +270,7 @@ curl -X POST http://localhost:8000/api/scan-message \
 3. Commit changes: `git commit -m 'Add amazing feature'`
 4. Push to branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
+
 
 ---
 
@@ -266,28 +306,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🆘 Emergency Resources
+# ⭐ Support
 
-If you're in immediate danger, contact local emergency services:
+If you find this project useful:
 
-| Country | Number | Helpline |
-|---------|--------|----------|
-| USA | 911 | National DV Hotline: 1-800-799-7233 |
-| UK | 999 | Women's Aid: 0808-2000-247 |
-| India | 100 | Women Helpline: 181 |
-| EU | 112 | - |
-
----
-
----
-
-## 👩‍💻 Team - Authors & Contributions
-
-| Name | Role | Contributions | GitHub |
-|------|------|---------------|--------|
-| **Moneka Meghwar** | AI Developer | AI model integration, Backend API, Core features | [@mmoneka11](https://github.com/mmoneka11) |
-| **Kashmala Saddiqui** | Security Specialist | Alert system, Sensor detection, Security review | [@kashmalaasif](https://github.com/kashmalaasif) |
-| **Umaima Rizwan** | Documentation Lead | Documentation, UI/UX design, Testing | [@umaim691](https://github.com/umaim691) |
+⭐ Star the repository  
+🍴 Fork the project  
+🤝 Contribute improvements  
 
 ---
 
