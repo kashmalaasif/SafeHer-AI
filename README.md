@@ -10,6 +10,9 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.109-green?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
+<img width="1536" height="1024" alt="system-workflow" src="https://github.com/user-attachments/assets/9399cf3b-727b-40ee-bfb2-48193d087b6e" />
+
+
 ---
 
 ## 📋 Problem Statement
