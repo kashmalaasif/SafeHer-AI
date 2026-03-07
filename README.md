@@ -2,7 +2,7 @@
 
 **AI-Powered Women's Safety Companion**
 
-> Real-time harassment detection, automatic alerts, and emergency response for women's safety  
+> SafeHer AI is a comprehensive safety application that uses artificial intelligence to detect harassment, provide emergency alerts, and keep women safe.
 
 ![SafeHer AI](https://img.shields.io/badge/SafeHer-AI%20Safety-purple?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.9+-blue?style=flat-square)
@@ -22,44 +22,15 @@ The solution is designed for women who face harassment, stalking, or feel unsafe
 
 SafeHer AI is an AI-powered safety companion that:
 
-1. **🔍 Harassment Detectiont** - AI analyzes messages for toxic/threatening content
+1. **🔍 Harassment Detectiont** - AI analyzes messages for toxic/threatening content using toxic-bert model
 2. **🚨 Panic Button** - One-tap emergency alerts with GPS location
-3. **📱 Automatic Protection** - Shake/fall detection triggers automatic alerts
-4. **📊 Safety Dashboard** - Real-time safety statistics, threats and alert history
+3. **📍 Location Sharing**: Automatic GPS location in alerts
+4. **📱 Automatic Protection** - Shake/fall detection triggers automatic alerts
+5. **📊 Safety Dashboard** - Real-time safety statistics, threats and alert history
+6. **🔔 Sensor Detection**: Support for accelerometer/fall detection
 
 ---
 
-## 🚀 Quickstart 
-
-### Prerequisites
-- Python 3.9+
-- Node.js 16+
-- Git
-
-### Quick Start
-
-```bash
-# Clone the repo
-git clone https://github.com/mmoneka11/SafeHER-AI.git
-cd SafeHER-AI
-
-# Copy environment template
-cp .env.example .env
-
-# Run setup script (Windows)
-setup.bat
-
-# OR manually:
-# Backend
-cd backend && pip install -r requirements.txt && uvicorn main:app --reload &
-
-# Frontend
-cd frontend && npm install && npm start
-```
-
-**That's it!** Open http://localhost:3000 🎉
-
----
 
 ## 🏗️ Architecture
 
@@ -73,7 +44,7 @@ cd frontend && npm install && npm start
         │            │            │            │
         ▼            ▼            ▼            ▼
 ┌─────────────────────────────────────────────────────────┐
-│                   REST API (FastAPI)                    │
+│                  BACKEND REST API (FastAPI)             │
 │         /status    /scan-message    /panic              │
 └─────────────────────────┬───────────────────────────────┘
                           │
@@ -91,10 +62,10 @@ cd frontend && npm install && npm start
 
 | Layer | Technology | Why Chosen |
 |-------|------------|------------|
-| **Frontend** | React 18, Axios | User interface, Component-based, sensor acces, large ecosystem |
+| **Frontend** | React 18, Axios, IS, HTML5, CSS3 | User interface, Component-based, sensor acces, large ecosystem |
 | **Styling** | CSS3 | No dependencies, fast loading |
-| **Backend** | FastAPI, Python | Async, fast, auto-documentation, API endpoints |
-| **AI/ML** | Hugging Face Transformers | State-of-the-art NLP models |
+| **Backend** | FastAPI, Python, Uvicorn, Pydantic | Async, fast, auto-documentation, API endpoints |
+| **AI/ML** | Hugging Face Transformers, PyTorch | State-of-the-art NLP models |
 | **Model** | toxic-bert | Pre-trained for toxicity detection / Harassment detection |
 | **SMS** | Twilio, SMTP | Reliable, global coverage,  SMS and email notifications |
 | **Hosting** | Vercel | Free tier, easy Serverless deployment |
@@ -137,6 +108,45 @@ SafeHER-AI/
 ├── LICENSE                 # MIT License
 └── README.md               # This file
 ```
+
+---
+
+## 📱 Screenshots
+
+| Dashboard | Panic Button | Message Scanner | Sensor |
+|-----------|--------------|-----------------|-----------------|
+| 📊 Stats <img width="1303" height="612" alt="1" src="https://github.com/user-attachments/assets/798c6fec-9185-4739-a2f3-ae217a81adb3" />| 🔍 Message Analysis <img width="1130" height="265" alt="msg_scan" src="https://github.com/user-attachments/assets/cea150e3-1c6e-45ca-8683-79c6c3894867" /> | 🚨 Emergency <img width="565" height="336" alt="em_alert" src="https://github.com/user-attachments/assets/653a1f51-9fda-48d8-b7ac-55a74e02b686" /> | 📱 Automatic Protection <img width="570" height="341" alt="auto_protect" src="https://github.com/user-attachments/assets/3674da42-08b6-44fd-9779-e5fdd10514a4" />|
+
+
+## 🚀 Quickstart 
+
+### Prerequisites
+- Python 3.9+
+- Node.js 16+
+- Git
+
+### Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/mmoneka11/SafeHER-AI.git
+cd SafeHER-AI
+
+# Copy environment template
+cp .env.example .env
+
+# Run setup script (Windows)
+setup.bat
+
+# OR manually:
+# Backend
+cd backend && pip install -r requirements.txt && uvicorn main:app --reload &
+
+# Frontend
+cd frontend && npm install && npm start
+```
+
+**That's it!** Open http://localhost:3000 🎉
 
 ---
 
@@ -198,6 +208,7 @@ EMERGENCY_EMAIL=emergency@email.com
 | `/api/panic` | POST | Trigger emergency alert |
 | `/api/status` | GET | Safety statistics |
 | `/api/health` | GET | API health check |
+| `/docs` | GET | Interactive API docs |
 
 ---
 
@@ -242,7 +253,7 @@ If you're in immediate danger, contact local emergency services:
 ---
 ---
 
-# 🏆 Hackathon
+## 🏆 Hackathon
 
 This project was built as part of the **75Her Challenge Hackathon**, an initiative focused on developing innovative solutions that support **women's empowerment, safety, and leadership through technology**.
 
@@ -251,7 +262,7 @@ https://75her-challenge.devpost.com/
 
 ---
 
-# 💡 Project Impact
+## 💡 Project Impact
 
 SafeHer AI aims to provide women with:
 
@@ -306,7 +317,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-# ⭐ Support
+## ⭐ Support
 
 If you find this project useful:
 
@@ -316,6 +327,7 @@ If you find this project useful:
 
 ---
 
-**Built with ❤️ for women's safety**
-
 *SafeHer AI - Because Your Safety Matters* 🛡️
+
+<p align="center">  <b>uilt with ❤️ by the IGOGs Team</b><br> for women's safety✨ </p> 
+
