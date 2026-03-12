@@ -17,7 +17,7 @@
 
 ## 📋 Problem Statement
 
-The solution is designed for women who face harassment, stalking, or feel unsafe in daily situations. Globally, about 1 in 3 women experience physical or sexual violence, and many lack instant access to help during emergencies. The system must be offline-capable, discreet, easy to use without technical knowledge, and able to send alerts within seconds. Success is achieved when a user can trigger an emergency alert with location in under 3 seconds and the AI detects over 70% of threatening messages.
+The solution is designed for women who face harassment, stalking, or feel unsafe in daily situations. Globally, about 1 in 3 women experience physical or sexual violence, and many lack instant access to help during emergencies. The system must be offline-capable, discreet, easy to use without technical knowledge, and able to send alerts within seconds. Success is achieved when a user can trigger an emergency alert with location in under 3 seconds and the AI detects over 70% of threatening messages.Shaking and sudden movement triggers the emergency alert autumatically without human intervation.
 
 ---
 
